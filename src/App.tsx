@@ -23,6 +23,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Rewards from './rewards/Rewards';
 
 const App: React.FC = () => (
   <IonApp>
@@ -30,11 +31,14 @@ const App: React.FC = () => (
       <IonSplitPane contentId='main'>
         <Menu />
         <IonRouterOutlet id='main'>
+          <Route exact path="/">
+            <Redirect to="/rewards" />
+          </Route>
           <Route exact path="/home">
             <Home />
           </Route>
-          <Route exact path="/">
-            <Redirect to="/home" />
+          <Route exact path="/rewards">
+            <Rewards />
           </Route>
         </IonRouterOutlet>
       </IonSplitPane>

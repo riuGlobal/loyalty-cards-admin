@@ -1,0 +1,14 @@
+[
+  {
+      "name": "Some cool gift",
+      "id": 1,
+      "amount": 1,
+      "url": "http://my-ecommerce/products/some-cool-gift"
+  },
+  {
+      "name": "Some cool gift",
+      "id": 2,
+      "amount": 1,
+      "url": "http://my-ecommerce/products/some-cool-gift"
+  }
+]
