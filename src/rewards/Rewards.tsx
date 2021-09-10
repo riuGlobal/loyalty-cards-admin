@@ -10,8 +10,8 @@ import {
 } from '@ionic/react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { CreateRewardDTO } from '../api/loyalty-cards/rewards/CreateRewardDto';
 
+import type { CreateRewardDTO } from '../api/loyalty-cards/rewards/CreateRewardDto';
 import type { Reward as RewardType } from '../api/loyalty-cards/rewards/Reward';
 import { Header } from '../app/Header';
 import type { AppDispatch, RootState } from '../app/store';
