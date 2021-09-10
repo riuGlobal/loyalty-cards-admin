@@ -18,7 +18,7 @@ export const RewardCard: React.FC<RewardProps>
         </IonCardHeader>
         <IonCardContent>
           <IonTitle> {`id: ${id}`} </IonTitle>
-          <IonTitle> {`title: ${title}`} </IonTitle>
+          <IonTitle> {`name: ${title}`} </IonTitle>
           <IonTitle> {`url: ${url}`} </IonTitle>
           <IonTitle> {`amount: ${amount}`} </IonTitle>
         </IonCardContent>

@@ -6,13 +6,13 @@ interface CardToolBarProps {
   deleteCallback?: () => unknown;
 }
 
-export const CardToolBar:React.FC<CardToolBarProps> = ({deleteCallback:del}) => (
+export const CardToolBar:React.FC<CardToolBarProps> = ({deleteCallback}) => (
   <IonToolbar>
     <IonButtons slot='end'>
       {/* <IonButton>
         <IonIcon icon={addOutline}/>
       </IonButton> */}
-      <IonButton onClick={del}>
+      <IonButton onClick={deleteCallback}>
         <IonIcon icon={closeOutline}/>
       </IonButton>
       </IonButtons>

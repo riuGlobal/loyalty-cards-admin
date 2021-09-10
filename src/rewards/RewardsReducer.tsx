@@ -1,3 +1,4 @@
+import { CreateRewardDTO } from '../api/loyalty-cards/rewards/CreateRewardDto';
 import type { Reward } from '../api/loyalty-cards/rewards/Reward';
 
 import type { RewardsAction } from './RewardsActions';
@@ -8,14 +9,16 @@ export interface RewardsState {
   isLoading: boolean;
   error: {
     message: null | string;
-  }
+  },
 }
+
+
 
 const initialState: RewardsState = {
   rewards: [],
   isLoading: true,
   error: {
-    message: '222'
+    message: null
   }
 };
 

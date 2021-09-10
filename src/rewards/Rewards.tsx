@@ -1,9 +1,16 @@
-import { IonCol, IonContent, IonGrid, IonHeader, IonLoading, IonPage, IonRow, useIonLoading, useIonToast } from '@ionic/react';
-import { reload } from 'ionicons/icons';
+import {
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonLoading,
+  IonPage,
+  IonRow,
+  useIonToast,
+} from '@ionic/react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import useDeepCompareEffect from 'use-deep-compare-effect';
+import { CreateRewardDTO } from '../api/loyalty-cards/rewards/CreateRewardDto';
 
 import type { Reward as RewardType } from '../api/loyalty-cards/rewards/Reward';
 import { Header } from '../app/Header';
@@ -11,22 +18,29 @@ import type { AppDispatch, RootState } from '../app/store';
 
 import { AddRewardCard } from './AddRewardCard';
 import { RewardCard } from './RewardCard';
-import { setRewardsRequested, deleteRewardRequested } from './RewardsActions';
+import { setRewardsRequested, deleteRewardRequested, createRewardAndReloadRequested } from './RewardsActions';
 
-interface RewardsProps {
+
+
+interface RewardDispatchProps {
+  createRewardAndReloadRequested: (createRewardDTO: CreateRewardDTO) => Promise<void>
+}
+
+interface RewardsProps extends RewardDispatchProps{
   rewards: RewardType[];
   setRewardsRequested: () => Promise<void>;
   deleteRewardRequested: (id: number) => Promise<void>;
   isLoading: boolean;
-  error: { message: string | null};
+  error: { message: string | null };
 }
 
 export const Rewards: React.FC<RewardsProps> = ({
   rewards,
+  createRewardAndReloadRequested,
   setRewardsRequested: setRewards,
   deleteRewardRequested: deleteReward,
   isLoading,
-  error
+  error,
 }) => {
   const pageTitle = 'Rewards';
   const loadingMessage = 'Loading...';
@@ -39,13 +53,11 @@ export const Rewards: React.FC<RewardsProps> = ({
     setRewards();
   }, []);
 
-  
-  useEffect(()=> {
+  useEffect(() => {
     if (error.message) {
-      present({message: error.message, duration: 2500});
+      present({ message: error.message, duration: 2500 });
     }
-  }, [error])
-
+  }, [error]);
 
   return (
     <IonPage>
@@ -58,7 +70,7 @@ export const Rewards: React.FC<RewardsProps> = ({
         <IonGrid fixed>
           <IonRow>
             <IonCol size="6">
-              <AddRewardCard />
+              <AddRewardCard addReward={createRewardAndReloadRequested}/>
             </IonCol>
             {rewards
               .sort((a, b) => b.id - a.id)
@@ -77,12 +89,13 @@ export const Rewards: React.FC<RewardsProps> = ({
 const mapStateToProps = (state: RootState) => ({
   rewards: state.rewardsStore.rewards,
   isLoading: state.rewardsStore.isLoading,
-  error: state.rewardsStore.error
+  error: state.rewardsStore.error,
 });
 
 const mapDispatchToProps = {
   setRewardsRequested,
   deleteRewardRequested,
+  createRewardAndReloadRequested
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Rewards);
