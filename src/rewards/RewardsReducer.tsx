@@ -1,3 +1,4 @@
+import { Reducer } from 'redux';
 import { CreateRewardDTO } from '../api/loyalty-cards/rewards/CreateRewardDto';
 import type { Reward } from '../api/loyalty-cards/rewards/Reward';
 
@@ -12,8 +13,6 @@ export interface RewardsState {
   },
 }
 
-
-
 const initialState: RewardsState = {
   rewards: [],
   isLoading: true,
@@ -22,7 +21,7 @@ const initialState: RewardsState = {
   }
 };
 
-export const rewardsStore = (state: RewardsState = initialState, action: RewardsAction): RewardsState => {
+export const rewardsStore:Reducer<RewardsState, RewardsAction> = (state: RewardsState = initialState, action: RewardsAction): RewardsState => {
   switch (action.type) {
     case RewardActionTypes.SET_REWARDS_REQUEST:
       return {

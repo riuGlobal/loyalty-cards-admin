@@ -3,7 +3,10 @@ import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 
 import { Menu } from './app/Menu';
+import Blueprints from './blueprints/Blueprints';
 import Home from './home/Home';
+import Rewards from './rewards/Rewards';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -23,14 +26,14 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import Rewards from './rewards/Rewards';
+
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonSplitPane contentId='main'>
+      <IonSplitPane contentId="main">
         <Menu />
-        <IonRouterOutlet id='main'>
+        <IonRouterOutlet id="main">
           <Route exact path="/">
             <Redirect to="/rewards" />
           </Route>
@@ -39,6 +42,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/rewards">
             <Rewards />
+          </Route>
+          <Route exact path="/blueprints">
+            <Blueprints/>
           </Route>
         </IonRouterOutlet>
       </IonSplitPane>

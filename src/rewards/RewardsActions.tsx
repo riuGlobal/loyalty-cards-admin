@@ -2,6 +2,7 @@ import type { CreateRewardDTO } from '../api/loyalty-cards/rewards/CreateRewardD
 import type { Reward } from '../api/loyalty-cards/rewards/Reward';
 import { RewardsApi } from '../api/loyalty-cards/rewards/RewardsApi';
 import type { AppDispatch } from '../app/store';
+import { handleErrorWithActionCreator } from '../error/ErrorHelpers';
 
 import { RewardActionTypes } from './RewardsActionsTypes';
 
@@ -65,8 +66,7 @@ export const createRewardsRequested =
 export const createRewardAndReloadRequested =
   (createRewardDTO: CreateRewardDTO) =>
   async (dispatch: AppDispatch): Promise<void> => {
-    await createRewardsRequested(createRewardDTO)(dispatch)
-      .then(() => setRewardsRequested()(dispatch))
+    await createRewardsRequested(createRewardDTO)(dispatch).then(() => setRewardsRequested()(dispatch));
   };
 
 export const setRewardsRequested =
@@ -74,14 +74,11 @@ export const setRewardsRequested =
   async (dispatch: AppDispatch): Promise<void> => {
     dispatch(setRewardsLoading());
 
-    RewardsApi.findAll()
+    await RewardsApi.findAll()
       .then((rewards) => dispatch(setRewardRequest(rewards.data)))
       .then(() => dispatch(rewardsRequestSuccess()))
       .catch((error) => {
-        const errorMessage = `Error when listing`;
-        if (error.response) {
-          dispatch(rewardsRequestFailure(`${errorMessage} - Mesage from server: ${error.response?.data?.message}`));
-        }
+        handleErrorWithActionCreator('Error when listing rewards', error, dispatch, rewardsRequestFailure);
       });
 
     // const rewardsMock = [

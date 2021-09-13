@@ -31,7 +31,7 @@ interface RewardsProps extends RewardDispatchProps{
   setRewardsRequested: () => Promise<void>;
   deleteRewardRequested: (id: number) => Promise<void>;
   isLoading: boolean;
-  error: { message: string | null };
+  error?: { message: string | null };
 }
 
 export const Rewards: React.FC<RewardsProps> = ({
@@ -54,7 +54,7 @@ export const Rewards: React.FC<RewardsProps> = ({
   }, []);
 
   useEffect(() => {
-    if (error.message) {
+    if (error?.message) {
       present({ message: error.message, duration: 2500 });
     }
   }, [error]);
