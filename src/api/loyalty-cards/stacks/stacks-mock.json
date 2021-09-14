@@ -1,0 +1,14 @@
+[
+  {
+      "cardBlueprintId": 1,
+      "numberOfCards": 200,
+      "id": 1,
+      "title": "New years 2021 loyalty cards"
+  },
+  {
+      "cardBlueprintId": 2,
+      "numberOfCards": 200,
+      "id": 2,
+      "title": "New years 2021 loyalty cards"
+  }
+]

@@ -6,7 +6,7 @@ import { Menu } from './app/Menu';
 import Blueprints from './blueprints/Blueprints';
 import Home from './home/Home';
 import Rewards from './rewards/Rewards';
-
+import Stacks from './stacks/Stacks'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -45,6 +45,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/blueprints">
             <Blueprints/>
+          </Route>
+          <Route exact path="/stacks">
+            <Stacks />
           </Route>
         </IonRouterOutlet>
       </IonSplitPane>

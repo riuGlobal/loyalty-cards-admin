@@ -1,18 +1,20 @@
-import { IonButton, IonButtons, IonIcon, IonToolbar } from '@ionic/react';
+import { IonToolbar, IonButtons, IonButton, IonIcon } from '@ionic/react';
 import { addOutline, closeOutline } from 'ionicons/icons';
+import React from 'react';
 
-interface AddCardToolBardProps {
+interface AddToolbarProps {
+  add?: () => unknown;
   reset?: () => unknown;
 }
 
-/**
- * 
- * @deprecated  
- */
-export const AddCardToolBar: React.FC<AddCardToolBardProps> = ({ reset = () => null }) => (
+export const AddToolbar: React.FC<AddToolbarProps> 
+  = ({ 
+    reset = () => null,
+    add = () => null
+  }) => (
   <IonToolbar>
     <IonButtons slot="end">
-      <IonButton type="submit">
+      <IonButton onClick={add}>
         <IonIcon icon={addOutline} />
       </IonButton>
       <IonButton onClick={reset}>
