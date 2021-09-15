@@ -1,4 +1,4 @@
-import type { Reducer } from 'react';
+import type { Reducer } from 'redux';
 
 import type { StackDTO } from '../api/loyalty-cards/stacks/StackDTO';
 
@@ -11,6 +11,9 @@ interface StacksState {
   error?: {
     message: string;
   };
+  assignedCardTo?: {
+    userId: string;
+  };
 }
 
 const initialStacksState: StacksState = {
@@ -18,7 +21,10 @@ const initialStacksState: StacksState = {
   isLoading: false,
 };
 
-export const StacksStore: Reducer<StacksState, StacksAction> = (state = initialStacksState, action: StacksAction) => {
+export const stacksStore: Reducer<StacksState, StacksAction> = (
+  state = initialStacksState,
+  action: StacksAction
+): StacksState => {
   switch (action.type) {
     case StacksActionsTypes.SET_STACKS_LOADING:
       return { ...state, isLoading: true };
@@ -28,6 +34,8 @@ export const StacksStore: Reducer<StacksState, StacksAction> = (state = initialS
       return { ...state, isLoading: false };
     case StacksActionsTypes.SET_STACKS_FAILURE:
       return { ...state, error: { message: action.errorMessage } };
+    case StacksActionsTypes.ASSIGN_CARD_TO_USER_SUCCESS:
+      return { ...state, assignedCardTo: { userId: action.userId } };
     default:
       return { ...state };
   }

@@ -11,7 +11,7 @@ export const Menu: React.FC = () => {
               <IonItem button routerLink='/rewards' >Rewards</IonItem>
               <IonItem button routerLink='/blueprints' >Blueprints</IonItem>
               <IonItem button routerLink='/stacks' >Stacks</IonItem>
-              <IonItem disabled button routerLink='/assigned-cards' >Assigned Cards</IonItem>
+              <IonItem button routerLink='/assigned-cards' >Assigned Cards</IonItem>
             </IonMenuToggle>
           </IonList>
         </IonContent>

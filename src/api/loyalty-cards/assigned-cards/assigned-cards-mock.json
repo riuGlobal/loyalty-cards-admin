@@ -1,0 +1,96 @@
+[
+  {
+      "cardStackId": 1,
+      "userId": "consecte",
+      "id": 1,
+      "title": "fugiat off",
+      "numberOfPunchBoxes": 10,
+      "rewards": [
+          {
+              "name": "Some cool gift",
+              "id": 1,
+              "amount": 1,
+              "url": "http://my-ecommerce/products/some-cool-gift"
+          },
+          {
+              "name": "Some cool gift",
+              "id": 1,
+              "amount": 1,
+              "url": "http://my-ecommerce/products/some-cool-gift"
+          }
+      ],
+      "punches": [
+          {
+              "id": 1,
+              "date": "2011-01-01T12:49:35.332Z",
+              "assignedCardId": 1
+          },
+          {
+              "id": 1,
+              "date": "1969-06-15T03:51:50.434Z",
+              "assignedCardId": 1
+          }
+      ],
+      "redeemedMarks": [
+          {
+              "assignedCardId": 1,
+              "note": "All rewards redeemed.",
+              "id": 1,
+              "date": "2011-11-20T15:06:14.755Z"
+          },
+          {
+              "assignedCardId": 1,
+              "note": "All rewards redeemed.",
+              "id": 1,
+              "date": "2001-12-30T12:58:04.277Z"
+          }
+      ]
+  },
+  {
+      "cardStackId": 1,
+      "userId": "Excepteur",
+      "id": 1,
+      "title": "et",
+      "numberOfPunchBoxes": 10,
+      "rewards": [
+          {
+              "name": "Some cool gift",
+              "id": 1,
+              "amount": 1,
+              "url": "http://my-ecommerce/products/some-cool-gift"
+          },
+          {
+              "name": "Some cool gift",
+              "id": 1,
+              "amount": 1,
+              "url": "http://my-ecommerce/products/some-cool-gift"
+          }
+      ],
+      "punches": [
+          {
+              "id": 1,
+              "date": "2016-11-16T21:19:06.949Z",
+              "assignedCardId": 1
+          },
+          {
+              "id": 1,
+              "date": "1953-08-29T05:26:05.283Z",
+              "assignedCardId": 1
+          }
+      ],
+      "redeemedMarks": [
+          {
+              "assignedCardId": 1,
+              "note": "All rewards redeemed.",
+              "id": 1,
+              "date": "1977-10-07T05:05:23.057Z"
+          },
+          {
+              "assignedCardId": 1,
+              "note": "All rewards redeemed.",
+              "id": 1,
+              "date": "1983-10-04T07:36:26.010Z"
+          }
+      ]
+  }
+]

@@ -80,20 +80,6 @@ export const setRewardsRequested =
       .catch((error) => {
         handleErrorWithActionCreator('Error when listing rewards', error, dispatch, rewardsRequestFailure);
       });
-
-    // const rewardsMock = [
-    //   {
-    //     name: 'Some cool gift',
-    //     id: 1,
-    //     amount: 1,
-    //     url: 'http://my-ecommerce/products/some-cool-gift',
-    //   },
-    //   {
-    //     nam>out(() => {
-    //   dispatch(setRewardRequest(rewards));
-    //   // dispatch(rewardsRequestFailure('Some api error message'))
-    //   dispatch(rewardsRequestSuccess())
-    // }, 2500);
   };
 
 export const deleteRewardRequested =
@@ -104,7 +90,6 @@ export const deleteRewardRequested =
       // .then( () => dispatch(rewardsRequestSuccess()))
       .catch((error) => {
         const errorMessage = `Error when deleting`;
-        console.log(error, '-----------');
         if (error.response) {
           dispatch(rewardsRequestFailure(`${errorMessage} - Message from server: ${error.response?.data?.message}`));
         }

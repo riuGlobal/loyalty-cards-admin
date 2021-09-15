@@ -3,6 +3,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 
 import { Menu } from './app/Menu';
+import AssignedCards from './assigned-cards/AssignedCards';
 import Blueprints from './blueprints/Blueprints';
 import Home from './home/Home';
 import Rewards from './rewards/Rewards';
@@ -48,6 +49,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/stacks">
             <Stacks />
+          </Route>
+          <Route>
+            <AssignedCards />
           </Route>
         </IonRouterOutlet>
       </IonSplitPane>
