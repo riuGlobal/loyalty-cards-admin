@@ -1,5 +1,5 @@
 export interface CreateStackDTO {
-  cardBlueprinId: number;
+  cardBlueprintId: number;
   numberOfCards: number;
   title: string;
 }

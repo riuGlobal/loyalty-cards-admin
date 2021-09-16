@@ -9,3 +9,5 @@ export const BLUEPRINT_TO_REWARDS_SLUG = '/card-blueprint-to-rewards';
 export const STACKS_PATH = '/card-stacks';
 
 export const ASSIGNED_CARDS_PATH = '/assigned-cards';
+
+export const REDEEMED_MARKS_PATH = '/redeemed-marks'

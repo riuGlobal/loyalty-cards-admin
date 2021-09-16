@@ -33,7 +33,7 @@ export const stacksStore: Reducer<StacksState, StacksAction> = (
     case StacksActionsTypes.SET_STACKS_SUCCESS:
       return { ...state, isLoading: false };
     case StacksActionsTypes.SET_STACKS_FAILURE:
-      return { ...state, error: { message: action.errorMessage } };
+      return { ...state, isLoading: false, error: { message: action.errorMessage } };
     case StacksActionsTypes.ASSIGN_CARD_TO_USER_SUCCESS:
       return { ...state, assignedCardTo: { userId: action.userId } };
     default:

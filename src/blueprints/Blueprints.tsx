@@ -114,11 +114,13 @@ const BlueprintsContainer: React.FC<BlueprintsContainerProps> = ({
   setBlueprintsRequested,
   setRewardsRequested,
   error,
+  blueprints,
   ...restOfProps
 }) => {
   const pageTitle = 'Blueprints';
   const loadingMessage = 'Loading...';
   const [present] = useIonToast();
+  blueprints = blueprints.sort((a,b) => b.id - a.id);
   useEffect(() => {
     setBlueprintsRequested();
     setRewardsRequested();
@@ -128,7 +130,7 @@ const BlueprintsContainer: React.FC<BlueprintsContainerProps> = ({
       present ({message: error.message, duration: 2500})
     }
   }, [error])
-  return <Blueprints {...{ ...restOfProps, pageTitle, loadingMessage }} />;
+  return <Blueprints {...{ ...restOfProps, blueprints, pageTitle, loadingMessage }} />;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlueprintsContainer);

@@ -1,3 +1,4 @@
+import type { AddRedeemedMarkToAssignedCardDTO } from '../api/loyalty-cards/assigned-cards/AddRedeemedMarkToAssignedCardDTO';
 import { AssignedCardsApi } from '../api/loyalty-cards/assigned-cards/AssignedCardsApi';
 import type { AssignedCardsDTO } from '../api/loyalty-cards/assigned-cards/AssignedCardsDTO';
 import type { AppDispatch } from '../app/store';
@@ -82,3 +83,24 @@ export const removeAssignedCardAndReloadRequested =
         )
       );
   };
+
+export const removeRedeemedMarkFromAssignedCardAndReloadRequested
+  = (markId: number) => async (dispatch: AppDispatch):Promise<void> => {
+    const removeRedeemedMarkFromAssignedCardAndReloadErrorMessage = `Error when removing redeemed mark of id ${markId}`
+    dispatch(setAssignedCardsLoading)
+    AssignedCardsApi.removeRedeemedMarkFromAssignedCard(markId)
+      .then(() => { setAssignedCardsRequested()(dispatch) })
+      .then(() => dispatch(assignedCardsRequestSuccess))
+      .catch((error) => handleErrorWithActionCreator(removeRedeemedMarkFromAssignedCardAndReloadErrorMessage, error, dispatch, assignedCardsRequestFailure))
+  } 
+
+export const addRedeemedMarkToAssignedCardAndReloadRequested
+  = (addRedeemedMarkToAssignedCardDTO: AddRedeemedMarkToAssignedCardDTO) => async (dispatch: AppDispatch): Promise<void> => {
+    const addRedeemedMarkToAssignCardAndReloadRequestedErrorMessage = `Error when adding mark to assigned card of id ${addRedeemedMarkToAssignedCardDTO.assignedCardId} and reloading`
+    dispatch(setAssignedCardsLoading)
+    AssignedCardsApi.addRedeemedMarkToAssignedCard(addRedeemedMarkToAssignedCardDTO)
+      .then(() => setAssignedCardsRequested()(dispatch))
+      .catch((error) => handleErrorWithActionCreator(addRedeemedMarkToAssignCardAndReloadRequestedErrorMessage, error, dispatch, assignedCardsRequestFailure))
+      
+  }
+

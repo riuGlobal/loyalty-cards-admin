@@ -18,7 +18,7 @@ const initialAssignedCardsState: AssignedCardsState = {
   isLoading: false,
 };
 
-export const assignedCardsStore: Reducer = (
+export const assignedCardsStore: Reducer<AssignedCardsState,AssignedCardsAction> = (
   state: AssignedCardsState = initialAssignedCardsState,
   action: AssignedCardsAction
 ) => {

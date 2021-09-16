@@ -36,7 +36,7 @@ export const AddStackCard: React.FC<AddStackCardProps> = ({
     console.log('--')
     if (title && numberOfCards && blueprintId) {
       reset();
-      createStack({ title, numberOfCards, cardBlueprinId: blueprintId });
+      createStack({ title, numberOfCards, cardBlueprintId: blueprintId });
     }
   };
 

@@ -13,17 +13,27 @@ import {
   IonToolbar,
 } from '@ionic/react';
 import { closeOutline } from 'ionicons/icons';
-import { AssignedCardRedeemedMark } from '../api/loyalty-cards/assigned-cards/AssignedCardRedeemedMark';
+
+import type { AddRedeemedMarkToAssignedCardDTO } from '../api/loyalty-cards/assigned-cards/AddRedeemedMarkToAssignedCardDTO';
+import type { AssignedCardRedeemedMark } from '../api/loyalty-cards/assigned-cards/AssignedCardRedeemedMark';
+
 import { AddRedeemedMarkCard } from './AddRedeemedMarkCard';
 
 interface AssignedCardRedeemedMarksCardProps {
   title?: string;
   redeemedMarks?: AssignedCardRedeemedMark[];
+  assignedCardId?: number;
+  addRedeemedMarkToAssignedCard?: (addRedeemedMarkToAssignedCardDTO: AddRedeemedMarkToAssignedCardDTO) => unknown;
+  removeRedeemedMarkFromAssignedCard?: (markId: number) => unknown
 }
 
 export const AssignedCardRedeemedMarksCard: React.FC<AssignedCardRedeemedMarksCardProps> = ({
   title,
   redeemedMarks = [],
+  assignedCardId ,
+  addRedeemedMarkToAssignedCard = () => null,
+  removeRedeemedMarkFromAssignedCard = () => null
+
 }) => {
   return (
     <IonCard>
@@ -37,7 +47,7 @@ export const AssignedCardRedeemedMarksCard: React.FC<AssignedCardRedeemedMarksCa
               <IonCard>
                 <IonCardHeader>
                   <IonToolbar>
-                    <IonButton slot='end'>
+                    <IonButton slot="end" onClick={() => removeRedeemedMarkFromAssignedCard(redeemedMark.id)}>
                       <IonIcon icon={closeOutline} />
                     </IonButton>
                   </IonToolbar>
@@ -49,7 +59,7 @@ export const AssignedCardRedeemedMarksCard: React.FC<AssignedCardRedeemedMarksCa
             </IonItem>
           ))}
           <IonItem>
-            <AddRedeemedMarkCard />
+            <AddRedeemedMarkCard assignedCardId={assignedCardId} addRedeemedMarkToAssignedCard={addRedeemedMarkToAssignedCard}/>
           </IonItem>
         </IonList>
       </IonCardContent>

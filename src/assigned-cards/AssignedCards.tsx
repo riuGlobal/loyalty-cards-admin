@@ -1,29 +1,66 @@
-import { IonCol, IonContent, IonGrid, IonHeader, IonPage, IonRow } from '@ionic/react';
+import { IonCol, IonContent, IonGrid, IonHeader, IonLoading, IonPage, IonRow, useIonToast } from '@ionic/react';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
 
+import type { AddRedeemedMarkToAssignedCardDTO } from '../api/loyalty-cards/assigned-cards/AddRedeemedMarkToAssignedCardDTO';
+import type { AssignedCardsDTO } from '../api/loyalty-cards/assigned-cards/AssignedCardsDTO';
 import { AppToolbar } from '../app/AppToolbar';
+import type { RootState } from '../app/store';
 
-import assignedCardsMock from '../api/loyalty-cards/assigned-cards/assigned-cards-mock.json';
-import { AssignedCardsDTO } from '../api/loyalty-cards/assigned-cards/AssignedCardsDTO';
 import { AssignedCard } from './AssignedCard';
+import {
+  setAssignedCardsRequested,
+  removeAssignedCardAndReloadRequested,
+  addRedeemedMarkToAssignedCardAndReloadRequested,
+  removeRedeemedMarkFromAssignedCardAndReloadRequested,
+} from './AssignedCardsActions';
 
 interface AssignedCardsOwnProps {
   pageTitle?: string;
-  assignedCards?: AssignedCardsDTO[];
 }
 
-type AssignedCardsProps = AssignedCardsOwnProps;
+interface AssignedCardsStateProps {
+  assignedCards?: AssignedCardsDTO[];
+  isLoading?: boolean;
+  error?: {
+    message: string;
+  };
+}
 
-export const AssignedCards: React.FC<AssignedCardsProps> = ({ pageTitle, assignedCards = [] }) => (
+interface AssignedCardsDispatchProps {
+  removeAssignedCardAndReloadRequested?: (id: number) => unknown;
+  addRedeemedMarkToAssignedCardAndReloadRequested?: (
+    addRedeemedMarkToAssignedCardDTO: AddRedeemedMarkToAssignedCardDTO
+  ) => unknown;
+  removeRedeemedMarkFromAssignedCardAndReloadRequested?: (markId: number) => unknown;
+}
+
+type AssignedCardsProps = AssignedCardsOwnProps & AssignedCardsStateProps & AssignedCardsDispatchProps;
+
+export const AssignedCards: React.FC<AssignedCardsProps> = ({
+  pageTitle,
+  assignedCards = [],
+  isLoading = false,
+  removeAssignedCardAndReloadRequested,
+  addRedeemedMarkToAssignedCardAndReloadRequested: addRedeemedMarkToAssignedCard,
+  removeRedeemedMarkFromAssignedCardAndReloadRequested: removeRedeemedMarkFromAssignedCard,
+}) => (
   <IonPage>
     <IonHeader>
       <AppToolbar pageTitle={pageTitle} />
     </IonHeader>
     <IonContent>
+      <IonLoading isOpen={isLoading} />
       <IonGrid>
         <IonRow>
           {assignedCards.map((assignedCard) => (
-            <IonCol size="6">
-              <AssignedCard {...assignedCard}/>
+            <IonCol size="6" key={`assigned-card-${assignedCard.id}`}>
+              <AssignedCard
+                removeAssignedCard={removeAssignedCardAndReloadRequested}
+                addRedeemedMarkToAssignedCard={addRedeemedMarkToAssignedCard}
+                removeRedeemedMarkFromAssignedCard={removeRedeemedMarkFromAssignedCard}
+                {...assignedCard}
+              />
             </IonCol>
           ))}
         </IonRow>
@@ -32,11 +69,59 @@ export const AssignedCards: React.FC<AssignedCardsProps> = ({ pageTitle, assigne
   </IonPage>
 );
 
-export const AssignedCardsContainer: React.FC = () => {
-  const pageTitle = 'Assigned Cards';
+interface AssignedCardsContainerProps extends AssignedCardsProps {
+  setAssignedCardsRequested: () => Promise<unknown>;
+  error?: {
+    message: string;
+  };
+}
 
-  const assignedCards = assignedCardsMock;
-  return <AssignedCards pageTitle={pageTitle} assignedCards={assignedCards} />;
+export const AssignedCardsContainer: React.FC<AssignedCardsContainerProps> = ({
+  assignedCards = [],
+  isLoading,
+  error,
+  addRedeemedMarkToAssignedCardAndReloadRequested,
+  removeRedeemedMarkFromAssignedCardAndReloadRequested,
+  removeAssignedCardAndReloadRequested,
+  setAssignedCardsRequested,
+}) => {
+  const pageTitle = 'Assigned Cards';
+  const [present] = useIonToast();
+  assignedCards = assignedCards.sort((a,b) => b.id - a.id)
+
+  useEffect(() => {
+    setAssignedCardsRequested();
+  }, []);
+
+  useEffect(() => {
+    if (error?.message) {
+      present({ message: error?.message, duration: 2500 });
+    }
+  }, [error]);
+
+  return (
+    <AssignedCards
+      pageTitle={pageTitle}
+      assignedCards={assignedCards}
+      isLoading={isLoading}
+      removeAssignedCardAndReloadRequested={removeAssignedCardAndReloadRequested}
+      addRedeemedMarkToAssignedCardAndReloadRequested={addRedeemedMarkToAssignedCardAndReloadRequested}
+      removeRedeemedMarkFromAssignedCardAndReloadRequested={removeRedeemedMarkFromAssignedCardAndReloadRequested}
+    />
+  );
 };
 
-export default AssignedCardsContainer;
+const mapStateToProps = (state: RootState): AssignedCardsStateProps => ({
+  assignedCards: state.assignedCardsStore.assignedCards,
+  isLoading: state.assignedCardsStore.isLoading,
+  error: state.assignedCardsStore.error,
+});
+
+const mapDispatchToProps = {
+  setAssignedCardsRequested,
+  removeAssignedCardAndReloadRequested,
+  addRedeemedMarkToAssignedCardAndReloadRequested,
+  removeRedeemedMarkFromAssignedCardAndReloadRequested,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AssignedCardsContainer);

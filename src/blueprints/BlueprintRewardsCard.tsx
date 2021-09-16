@@ -67,7 +67,7 @@ export const BlueprintRewardsCard: React.FC<BlueprintRewardsCardProps> = ({
             <IonSelect value={rewardId} placeholder="Select Reward" onIonChange={(e) => setRewardId(e.detail.value)}>
               {rewards.map((reward) => (
                 <IonSelectOption value={reward.id}>
-                  {`${reward.amount} - ${reward.name} - id: ${reward.id}`}
+                  {`(id: ${reward.id}) ${reward.amount} - ${reward.name}`}
                 </IonSelectOption>
               ))}
             </IonSelect>

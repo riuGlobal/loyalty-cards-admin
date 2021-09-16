@@ -16,6 +16,7 @@ import {
   createStackAndReload,
   removeStackAndReload,
   assignCardToUserRequest,
+  stacksRequestFailure,
 } from './StacksActions';
 
 interface StacksOwnProps {
@@ -85,11 +86,15 @@ const StacksContainer: React.FC<StacksContainerProps> = ({
   setBlueprintsRequested,
   assignedCardTo,
   error,
+  stacks,
+  blueprints,
   ...stacksProps
 }) => {
   const pageTitle = 'Stacks';
   const loadingMessage = 'Loading...';
   const [present] = useIonToast();
+  stacks = stacks?.sort((a,b) => b.id - a.id)
+  blueprints = blueprints?.sort((a,b) => b.id - a.id)
   useEffect(() => {
     setStacksRequested();
     setBlueprintsRequested();
@@ -107,7 +112,7 @@ const StacksContainer: React.FC<StacksContainerProps> = ({
     }
   }, [assignedCardTo]);
 
-  return <Stacks {...{ ...stacksProps, pageTitle, loadingMessage }} />;
+  return <Stacks {...{ ...stacksProps, pageTitle, loadingMessage, stacks, blueprints }} />;
 };
 
 const mapStateToProps = (state: RootState): StacksStateProps => ({
